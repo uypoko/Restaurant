@@ -6,10 +6,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Menu-->
         <scene sceneID="LcU-8d-SGS">
             <objects>
                 <tableViewController id="QdG-JG-Aeq" customClass="CategoryTableViewController" customModule="Restaurant" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +36,7 @@
                             <outlet property="delegate" destination="QdG-JG-Aeq" id="7GG-87-vq0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="pQ9-gu-M28"/>
+                    <navigationItem key="navigationItem" title="Menu" id="pQ9-gu-M28"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nau-yo-4ZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,6 +69,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npy-mk-ImR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2059" y="96"/>
+        </scene>
+        <!--Menu Item Detail View Controller-->
+        <scene sceneID="NeX-Tc-8me">
+            <objects>
+                <viewController id="6fW-8m-iD6" customClass="MenuItemDetailViewController" customModule="Restaurant" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RhB-F8-ZMG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="29d-nL-CZL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="INk-dO-XLW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2797" y="96"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="WqX-xF-f23">
@@ -138,6 +154,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="oFX-k5-GmE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kLF-Qx-DVb">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
