@@ -173,7 +173,7 @@
             </objects>
             <point key="canvasLocation" x="2797" y="96"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Order-->
         <scene sceneID="WqX-xF-f23">
             <objects>
                 <tableViewController id="5oE-SH-mhF" customClass="OrderTableViewController" customModule="Restaurant" customModuleProvider="target" sceneMemberID="viewController">
@@ -182,12 +182,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ryt-UH-usr">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderCell" textLabel="pKQ-Qe-09e" detailTextLabel="7GC-KO-bA4" style="IBUITableViewCellStyleValue1" id="ryt-UH-usr">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ryt-UH-usr" id="4yj-vV-jMn">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKQ-Qe-09e">
+                                            <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7GC-KO-bA4">
+                                            <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -196,11 +212,61 @@
                             <outlet property="delegate" destination="5oE-SH-mhF" id="qkj-4F-na6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="mqh-zS-dtv"/>
+                    <navigationItem key="navigationItem" title="Order" id="mqh-zS-dtv">
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="3GL-3b-Bm7">
+                            <connections>
+                                <action selector="submitButtonTapped:" destination="5oE-SH-mhF" id="RSh-bS-ev7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="BJK-i1-1Ft" kind="presentation" identifier="ConfirmationSegue" id="fPD-4T-B21"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1y0-sJ-peo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1286.9565217391305" y="775.44642857142856"/>
+        </scene>
+        <!--Order Confirmation View Controller-->
+        <scene sceneID="BBi-JT-NKe">
+            <objects>
+                <viewController id="BJK-i1-1Ft" customClass="OrderConfirmationViewController" customModule="Restaurant" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ocs-zg-Aa1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jd2-jz-IOA">
+                                <rect key="frame" x="10" y="436" width="394" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlR-Tc-4dd">
+                                <rect key="frame" x="180" y="470" width="54" height="30"/>
+                                <state key="normal" title="Dismiss"/>
+                                <connections>
+                                    <segue destination="3dz-sN-0Nz" kind="unwind" identifier="DismissConfirmation" unwindAction="unwindToOrderListWithSegue:" id="nyF-AO-y71"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jd2-jz-IOA" firstAttribute="leading" secondItem="bcZ-PP-GMm" secondAttribute="leading" constant="10" id="5an-L9-jCF"/>
+                            <constraint firstItem="jd2-jz-IOA" firstAttribute="centerY" secondItem="ocs-zg-Aa1" secondAttribute="centerY" id="DIk-vo-CXm"/>
+                            <constraint firstItem="dlR-Tc-4dd" firstAttribute="centerX" secondItem="ocs-zg-Aa1" secondAttribute="centerX" id="KjV-vm-pgQ"/>
+                            <constraint firstItem="dlR-Tc-4dd" firstAttribute="top" secondItem="jd2-jz-IOA" secondAttribute="bottom" constant="10" id="Xvb-bL-wt3"/>
+                            <constraint firstItem="bcZ-PP-GMm" firstAttribute="trailing" secondItem="jd2-jz-IOA" secondAttribute="trailing" constant="10" id="fCu-dh-ZLs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bcZ-PP-GMm"/>
+                    </view>
+                    <connections>
+                        <outlet property="timeLabel" destination="jd2-jz-IOA" id="mrP-Kx-Vu3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXK-Sg-0CX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3dz-sN-0Nz" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2045" y="779"/>
         </scene>
         <!--Your Order-->
         <scene sceneID="kmX-oS-4ye">

@@ -12,6 +12,7 @@
 		94AE7A8922BA0F0A0098E112 /* IntermediaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE7A8822BA0F0A0098E112 /* IntermediaryModels.swift */; };
 		94AE7A8B22BA10A40098E112 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE7A8A22BA10A40098E112 /* Order.swift */; };
 		94AE7A8D22BA11D60098E112 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE7A8C22BA11D60098E112 /* MenuController.swift */; };
+		94AE7A8F22BA54C40098E112 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE7A8E22BA54C40098E112 /* OrderConfirmationViewController.swift */; };
 		94B76D8C22B8EC09003E000E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B76D8B22B8EC09003E000E /* AppDelegate.swift */; };
 		94B76D9122B8EC09003E000E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B76D8F22B8EC09003E000E /* Main.storyboard */; };
 		94B76D9322B8EC0B003E000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94B76D9222B8EC0B003E000E /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		94AE7A8822BA0F0A0098E112 /* IntermediaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediaryModels.swift; sourceTree = "<group>"; };
 		94AE7A8A22BA10A40098E112 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		94AE7A8C22BA11D60098E112 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		94AE7A8E22BA54C40098E112 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
 		94B76D8822B8EC09003E000E /* Restaurant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B76D8B22B8EC09003E000E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94B76D9022B8EC09003E000E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				94B76DA322B8FAFF003E000E /* MenuTableViewController.swift */,
 				94B76DA522B8FB11003E000E /* OrderTableViewController.swift */,
 				94AE7A8422BA0C760098E112 /* MenuItemDetailViewController.swift */,
+				94AE7A8E22BA54C40098E112 /* OrderConfirmationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94AE7A8F22BA54C40098E112 /* OrderConfirmationViewController.swift in Sources */,
 				94AE7A8522BA0C760098E112 /* MenuItemDetailViewController.swift in Sources */,
 				94AE7A8D22BA11D60098E112 /* MenuController.swift in Sources */,
 				94B76DA622B8FB11003E000E /* OrderTableViewController.swift in Sources */,

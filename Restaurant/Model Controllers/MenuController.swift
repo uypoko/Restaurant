@@ -11,6 +11,12 @@ class MenuController {
     
     static let shared = MenuController()
     let baseURL = URL(string: "http://localhost:8090/")!
+    static let orderUpdateNotification = Notification.Name("MenuController.orderUpdated")
+    var order = Order() {
+        didSet {
+            NotificationCenter.default.post(name: MenuController.orderUpdateNotification, object: nil)
+        }
+    }
     
     func fetchCategories(completion: @escaping ([String]?) -> Void) {
         let categoryURL = baseURL.appendingPathComponent("categories")
