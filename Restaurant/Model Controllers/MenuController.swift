@@ -18,36 +18,12 @@ class MenuController {
             NotificationCenter.default.post(name: MenuController.orderUpdateNotification, object: nil)
         }
     }
-    
-    func fetchCategories(completion: @escaping ([String]?) -> Void) {
-        let categoryURL = baseURL.appendingPathComponent("categories")
-        let task = URLSession.shared.dataTask(with: categoryURL) { (data, response, error) in
-            if let data = data, let jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any], let categories = jsonDictionary["categories"] as? [String] {
-                completion(categories)
-            } else {
-                print("Something went wrong")
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
-    
-    func fetMenuItems(forCategory category: String, completion: @escaping ([MenuItem]?) -> Void) {
-        let initialMenuURL = baseURL.appendingPathComponent("menu")
-        var components = URLComponents(url: initialMenuURL, resolvingAgainstBaseURL: true)!
-        components.queryItems = [URLQueryItem(name: "category", value: category)]
-        let menuURL = components.url!
-        
-        let task = URLSession.shared.dataTask(with: menuURL) { (data, response, error) in
-            let jsonDecoder = JSONDecoder()
-            if let data = data, let menuItems = try? jsonDecoder.decode(MenuItems.self, from: data) {
-                completion(menuItems.items)
-            } else {
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
+    private static let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    private let orderFileURL = documentsDirectoryURL.appendingPathComponent("order").appendingPathExtension("json")
+    private let menuItemsFileURL = documentsDirectoryURL.appendingPathComponent("menuItems").appendingPathExtension("json")
+    private var itemsById = [Int: MenuItem]()
+    private var itemsByCategory = [String: [MenuItem]]()
+    static let menuDataUpdatedNotification = Notification.Name("MenuController.menuDataUpdated")
     
     func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -80,5 +56,71 @@ class MenuController {
             }
         }
         task.resume()
+    }
+    
+    func loadOrder() {
+        guard let data = try? Data(contentsOf: orderFileURL) else { return }
+        order = (try? JSONDecoder().decode(Order.self, from: data)) ?? Order(menuItems: [])
+    }
+    
+    func saveOrder() {
+        if let data = try? JSONEncoder().encode(order) {
+            try? data.write(to: orderFileURL)
+        }
+    }
+    
+    func item(withId itemId: Int) -> MenuItem? {
+        return itemsById[itemId]
+    }
+    
+    func items(forCategory category: String) -> [MenuItem]? {
+        return itemsByCategory[category]
+    }
+    
+    var categories: [String] {
+        get {
+            return itemsByCategory.keys.sorted()
+        }
+    }
+    
+    private func process(items: [MenuItem]) {
+        itemsById.removeAll()
+        itemsByCategory.removeAll()
+        
+        for item in items {
+            itemsById[item.id] = item
+            itemsByCategory[item.category, default: []].append(item)
+        }
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: MenuController.menuDataUpdatedNotification, object: nil)
+        }
+    }
+    
+    func loadRemoteData() {
+        let initialMenuURL = baseURL.appendingPathComponent("menu")
+        let components = URLComponents(url: initialMenuURL, resolvingAgainstBaseURL: true)!
+        let menuURL = components.url!
+        
+        let task = URLSession.shared.dataTask(with: menuURL) { (data, _, _) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data, let menuItems = try? jsonDecoder.decode(MenuItems.self, from: data) {
+                self.process(items: menuItems.items)
+            }
+        }
+        task.resume()
+    }
+    
+    func loadItems() {
+        guard let data = try? Data(contentsOf: menuItemsFileURL) else { return }
+        let items = (try? JSONDecoder().decode([MenuItem].self, from: data)) ?? []
+        process(items: items)
+    }
+    
+    func saveItems() {
+        let items = Array(itemsById.values)
+        if let data = try? JSONEncoder().encode(items) {
+            try? data.write(to: menuItemsFileURL)
+        }
     }
 }

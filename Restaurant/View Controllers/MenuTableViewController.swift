@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
 
-    var category: String!
+    var category: String?
     var menuItems = [MenuItem]()
     
     override func viewDidLoad() {
@@ -21,19 +21,15 @@ class MenuTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        title = category.capitalized
-        MenuController.shared.fetMenuItems(forCategory: category) { (menuItems) in
-            if let menuItems = menuItems {
-                self.updateUI(with: menuItems)
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: MenuController.menuDataUpdatedNotification, object: nil)
+        updateUI()
     }
     
-    func updateUI(with menuItems: [MenuItem]) {
-        self.menuItems = menuItems
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+    @objc func updateUI() {
+        guard let category = category else { return }
+        title = category.capitalized
+        menuItems = MenuController.shared.items(forCategory: category) ?? []
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -103,6 +99,17 @@ class MenuTableViewController: UITableViewController {
     }
     */
 
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        guard let category = category else { return }
+        coder.encode(category, forKey: "category")
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        category = coder.decodeObject(forKey: "category") as? String
+        updateUI()
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

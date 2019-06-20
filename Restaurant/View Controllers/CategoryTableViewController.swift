@@ -20,18 +20,13 @@ class CategoryTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        MenuController.shared.fetchCategories { (categories) in
-            if let categories = categories {
-                self.updateUI(with: categories)
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: MenuController.menuDataUpdatedNotification, object: nil)
+        updateUI()
     }
     
-    func updateUI(with categories: [String]) {
-        self.categories = categories
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+    @objc func updateUI() {
+        categories = MenuController.shared.categories
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
