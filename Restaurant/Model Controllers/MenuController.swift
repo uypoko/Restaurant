@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 class MenuController {
     
     static let shared = MenuController()
@@ -41,6 +42,17 @@ class MenuController {
             let jsonDecoder = JSONDecoder()
             if let data = data, let menuItems = try? jsonDecoder.decode(MenuItems.self, from: data) {
                 completion(menuItems.items)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let data = data, let image = UIImage(data: data) {
+                completion(image)
             } else {
                 completion(nil)
             }

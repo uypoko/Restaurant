@@ -70,7 +70,6 @@
 		94B76D8A22B8EC09003E000E /* Restaurant */ = {
 			isa = PBXGroup;
 			children = (
-				94B76DA022B8FA93003E000E /* Other Controllers */,
 				94B76D9F22B8FA89003E000E /* View Controllers */,
 				94B76D9E22B8FA80003E000E /* Model Controllers */,
 				94B76D9D22B8FA76003E000E /* Model */,
@@ -111,13 +110,6 @@
 				94AE7A8E22BA54C40098E112 /* OrderConfirmationViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		94B76DA022B8FA93003E000E /* Other Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
